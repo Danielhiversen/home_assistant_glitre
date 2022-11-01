@@ -39,11 +39,10 @@ class GlitreDataUpdateCoordinator(DataUpdateCoordinator):
             print(data["forbruksledd"])
         except Exception:  # pylint: disable=broad-except
             _LOGGER.exception("Error fetching Glitre data")
-        now = dt_util.utcnow()
-
         self._unsub_refresh = async_track_point_in_utc_time(
             self.hass,
             self._job,
-            dt_util.utcnow().replace(minute=0, second=0, microsecond=0) + datetime.timedelta(hours=1) ,
+            dt_util.utcnow().replace(minute=0, second=0, microsecond=0)
+            + datetime.timedelta(hours=1),
         )
         return data
