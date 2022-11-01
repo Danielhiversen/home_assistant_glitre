@@ -30,7 +30,6 @@ class GlitreDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         """Update data via API."""
-        now = dt_util.now(dt_util.DEFAULT_TIME_ZONE)
         data = {} if self.data is None else self.data
 
         try:
@@ -40,7 +39,8 @@ class GlitreDataUpdateCoordinator(DataUpdateCoordinator):
             print(data["forbruksledd"])
         except Exception:  # pylint: disable=broad-except
             _LOGGER.exception("Error fetching Glitre data")
-        self.update_interval = (datetime.timedelta(hours=1, seconds=0)
-                                - (now - now.replace(minute=0, second=0, microsecond=0)))
+        now = dt_util.now(dt_util.DEFAULT_TIME_ZONE)
+        time_to_next_hour = now - now.replace(minute=0, second=0, microsecond=0)
+        self.update_interval = datetime.timedelta(hours=1) - time_to_next_hour
         print(self.update_interval)
         return data
