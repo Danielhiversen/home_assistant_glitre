@@ -20,7 +20,7 @@ class GlitreDataUpdateCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             name=f"Glitre Data {metering_point_id}",
-            update_interval=datetime.timedelta(seconds=15),
+            update_interval=datetime.timedelta(seconds=10),
         )
         self.metering_point_id = metering_point_id
         self._api_key = api_key
@@ -31,13 +31,14 @@ class GlitreDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via API."""
         data = {} if self.data is None else self.data
-        try:
-            data["forbruksledd"] = await get_glitre_forbruksledd_data(
-                self._session, self.metering_point_id, self._api_key
+        if dt_util.now() > self._next_update:
+            try:
+                data["forbruksledd"] = await get_glitre_forbruksledd_data(
+                    self._session, self.metering_point_id, self._api_key
+                )
+            except Exception:  # pylint: disable=broad-except
+                _LOGGER.exception("Error fetching Glitre data")
+            self._next_update = datetime.timedelta(hours=1) + dt_util.now().replace(
+                minute=0, second=0, microsecond=0
             )
-        except Exception:  # pylint: disable=broad-except
-            _LOGGER.exception("Error fetching Glitre data")
-        now = dt_util.now(dt_util.DEFAULT_TIME_ZONE)
-        delta_last_hour = now - now.replace(minute=0, second=0, microsecond=0)
-        self.update_interval = datetime.timedelta(hours=1, seconds=1) - delta_last_hour
         return data
