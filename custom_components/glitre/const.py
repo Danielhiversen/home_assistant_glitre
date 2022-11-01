@@ -1,4 +1,4 @@
-"""constants for Tibber integration."""
+"""constants for Glitre integration."""
 
 from homeassistant.components.sensor import (
     SensorEntityDescription,

@@ -1,4 +1,4 @@
-"""Tibber data"""
+"""Glitre data"""
 import logging
 
 from homeassistant.components.sensor import SensorEntity
@@ -13,7 +13,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_platform(hass: HomeAssistant, _, async_add_entities, config):
-    """Set up the Tibber sensor."""
+    """Set up the Glitre sensor."""
     hass.data[DOMAIN] = {}
     metering_point_id = config["metering_point_id"]
     api_key = config["api_key"]
@@ -38,10 +38,6 @@ class GlitreDataSensor(SensorEntity, CoordinatorEntity["TibberDataCoordinator"])
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        print()
-        print()
-        print()
-        print(self.entity_description.key)
         if self.entity_description.key == "forbruksledd":
             native_value = self.coordinator.data["forbruksledd"][
                 dt_util.utcnow().replace(minute=0, second=0, microsecond=0)
