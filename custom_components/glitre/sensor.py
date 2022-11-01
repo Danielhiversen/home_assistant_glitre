@@ -38,6 +38,10 @@ class GlitreDataSensor(SensorEntity, CoordinatorEntity["TibberDataCoordinator"])
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
+        print()
+        print()
+        print()
+        print(self.entity_description.key)
         if self.entity_description.key == "forbruksledd":
             native_value = self.coordinator.data["forbruksledd"][
                 dt_util.utcnow().replace(minute=0, second=0, microsecond=0)
