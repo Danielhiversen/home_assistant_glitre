@@ -33,12 +33,13 @@ class GlitreDataUpdateCoordinator(DataUpdateCoordinator):
         now = dt_util.now(dt_util.DEFAULT_TIME_ZONE)
         data = {} if self.data is None else self.data
 
-        if now >= self._next_update:
-            try:
-                data["forbruksledd"] = await get_glitre_forbruksledd_data(
-                    self._session, self.metering_point_id, self._api_key
-                )
-            except Exception:  # pylint: disable=broad-except
-                _LOGGER.exception("Error fetching Glitre data")
-            self._next_update = now + datetime.timedelta(hours=1)
+        try:
+            data["forbruksledd"] = await get_glitre_forbruksledd_data(
+                self._session, self.metering_point_id, self._api_key
+            )
+            print(data["forbruksledd"])
+        except Exception:  # pylint: disable=broad-except
+            _LOGGER.exception("Error fetching Glitre data")
+        self.update_interval = datetime.timedelta(hours=1, seconds=0) - (now - now.replace(minute=0, second=0, microsecond=0))
+        print(self.update_interval)
         return data

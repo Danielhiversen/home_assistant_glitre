@@ -2,6 +2,7 @@ name: Code-checker
 
 on:
   pull_request:
+  push:
 
 jobs:
   black:
@@ -23,7 +24,7 @@ jobs:
         run: |
           pip install isort black
       - name: isort
-        run: isort $SRC_FOLDER
+        run: isort --profile black $SRC_FOLDER
       - name: Check for modified files
         id: git-check-isort
         run: git diff --quiet || echo "::set-output name=modified::true"

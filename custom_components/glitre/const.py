@@ -1,7 +1,6 @@
 """constants for Tibber integration."""
 
 from homeassistant.components.sensor import (
-    SensorDeviceClass,
     SensorEntityDescription,
     SensorStateClass,
 )
