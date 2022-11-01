@@ -40,7 +40,7 @@ class GlitreDataUpdateCoordinator(DataUpdateCoordinator):
             print(data["forbruksledd"])
         except Exception:  # pylint: disable=broad-except
             _LOGGER.exception("Error fetching Glitre data")
-        self.update_interval = (datetime.timedelta(hours=1, seconds=0)
-                                - (now - now.replace(minute=0, second=0, microsecond=0)))
+        self.update_interval = (datetime.timedelta(hours=1, seconds=0) -
+                                (now - now.replace(minute=0, second=0, microsecond=0)))
         print(self.update_interval)
         return data
