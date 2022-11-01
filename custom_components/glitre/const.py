@@ -1,8 +1,10 @@
 """constants for Tibber integration."""
 
-from homeassistant.components.sensor import (SensorDeviceClass,
-                                             SensorEntityDescription,
-                                             SensorStateClass)
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntityDescription,
+    SensorStateClass,
+)
 
 DOMAIN = "glitre"
 
