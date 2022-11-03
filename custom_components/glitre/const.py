@@ -1,9 +1,6 @@
 """constants for Glitre integration."""
 
-from homeassistant.components.sensor import (
-    SensorEntityDescription,
-    SensorStateClass,
-)
+from homeassistant.components.sensor import SensorEntityDescription, SensorStateClass
 
 DOMAIN = "glitre"
 

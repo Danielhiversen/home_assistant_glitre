@@ -39,12 +39,11 @@ class GlitreDataSensor(SensorEntity, CoordinatorEntity["TibberDataCoordinator"])
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
         if self.entity_description.key == "forbruksledd":
-            native_value = self.coordinator.data["forbruksledd"][
+            self._attr_native_value = self.coordinator.data["forbruksledd"][
                 dt_util.utcnow().replace(minute=0, second=0, microsecond=0)
             ]
         else:
-            native_value = self.coordinator.data.get(self.entity_description.key)
-        self._attr_native_value = (
-            round(native_value, 2) if native_value is not None else None
-        )
+            self._attr_native_value = self.coordinator.data.get(
+                self.entity_description.key
+            )
         self.async_write_ha_state()
