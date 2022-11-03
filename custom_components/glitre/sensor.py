@@ -43,5 +43,7 @@ class GlitreDataSensor(SensorEntity, CoordinatorEntity["TibberDataCoordinator"])
                 dt_util.utcnow().replace(minute=0, second=0, microsecond=0)
             ]
         else:
-            self._attr_native_value = self.coordinator.data.get(self.entity_description.key)
+            self._attr_native_value = self.coordinator.data.get(
+                self.entity_description.key
+            )
         self.async_write_ha_state()
