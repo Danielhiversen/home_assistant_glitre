@@ -21,7 +21,7 @@ In configuration.yaml:
 
 ```
 glitre:
-  metering_point_id: XXXXX
+  metering_point_id: 7070575000XXXXXXXX
   api_key: XXXX # https://www.glitreenergi-nett.no/kunde/ny-nettleie/api-for-nettleiepriser/
 
 ```
