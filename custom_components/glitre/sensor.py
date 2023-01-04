@@ -24,7 +24,7 @@ async def async_setup_platform(hass: HomeAssistant, _, async_add_entities, confi
     )
 
 
-class GlitreDataSensor(SensorEntity, CoordinatorEntity["TibberDataCoordinator"]):
+class GlitreDataSensor(SensorEntity, CoordinatorEntity["GlitreDataUpdateCoordinator"]):
     """Representation of a Glitre sensor."""
 
     def __init__(self, coordinator, entity_description):
