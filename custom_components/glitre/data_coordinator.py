@@ -1,4 +1,4 @@
-"""Data coordinator for Tibber."""
+"""Data coordinator for Glitre."""
 import datetime
 import logging
 
